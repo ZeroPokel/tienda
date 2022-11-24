@@ -1,0 +1,13 @@
+package com.zeropokel.springprojects.tienda.services;
+import com.zeropokel.springprojects.tienda.model.Producto;
+import java.util.List;
+
+
+public interface ProductosService {
+    
+    public List<Producto> findAll();
+    public Producto findByID(int codigo);
+    public void insert(Producto producto);
+    public void update(Producto producto);
+    public void delete(int codigo);
+}

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/header :: header"></head>
+<body>
+  <br>
+    <div class="container-fluid col-md-6">
+      <form method="post" th:action="@{/login}">
+
+        <div class="form-outline mb-2">
+          <input type="text" id="usuario" class="form-control" name="usuario" required/>
+          <label class="form-label" for="form2Example1">Usuario</label>
+        </div>
+      
+        <!-- Password input -->
+        <div class="form-outline mb-2">
+          <input type="password" id="form2Example2" class="form-control" required/>
+          <label class="form-label" for="form2Example2">Password</label>
+        </div>
+      
+        <!-- 2 column grid layout for inline styling -->
+        <div class="row mb-2">
+          <div class="col d-flex justify-content-center text-center">
+            <!-- Checkbox -->
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
+              <label class="form-check-label" for="form2Example31"> Remember me </label>
+            </div>
+          </div>
+      
+          <div class="col text-center">
+            <!-- Simple link -->
+            <a href="#!">Forgot password?</a>
+          </div>
+        </div>
+      
+        <!-- Submit button -->
+        <div class="text-center">
+          <input type="submit" class="btn btn-primary" value="Log in">
+        </div>
+      
+        <!-- Register buttons -->
+        <div class="text-center">
+          <p>Not a member? <a href="#!">Register</a></p>
+          <p th:text="${session.usuario.usuario}" th:if="${session ne null and session.usuario ne null}"></p>
+          <p th:text="#{no.session}" th:unless="${session ne null and session.usuario ne null}"></p>
+          <button type="button" class="btn btn-link btn-floating mx-1">
+            <i class="fab fa-facebook-f"></i>
+          </button>
+      
+          <button type="button" class="btn btn-link btn-floating mx-1">
+            <i class="fab fa-google"></i>
+          </button>
+      
+          <button type="button" class="btn btn-link btn-floating mx-1">
+            <i class="fab fa-twitter"></i>
+          </button>
+      
+          <button type="button" class="btn btn-link btn-floating mx-1">
+            <i class="fab fa-github"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/header :: header"> </head>
+<body>
+    
+  <div th:replace="commons/menu :: menu"></div>
+
+    <!-- CARDS -->
+    <div class="container">
+      <a th:href="@{/productos/create}" th:text="#{list.crear}" href="create.html" class="btn btn-primary">Crear</a>
+        <div class="row">
+          <div th:each="producto : ${productos}" class="col-3">
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <h5 th:text="${producto.nombre}" class="card-title">Producto</h5>
+                <p th:text="${producto.codigo}" class="card-text">Codigo producto.</p>
+                <p th:text="${producto.descripcion}" class="card-text">Descripción</p>
+                <p th:text="${producto.precio}" class="card-text">Precio</p>
+                <a th:href="@{/productos/edit/}+${producto.codigo}" th:text="#{list.editar}" href="edit.html" class="btn btn-primary">Editar</a>
+                <a th:href="@{/productos/delete/}+${producto.codigo}" th:text="#{list.borrar}" href="delete.html" class="btn btn-primary">Borrar</a>
+              </div>
+            </div>
+          </div>
+        </div>
+ 
+        <div class="row">
+            <div class="col-12">
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination justify-content-center">
+                    <li class="page-item"><a class="page-link bi bi-arrow-left" href="#"></a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link bi bi-arrow-right" href="#"></a></li>
+                  </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+  <div th:replace="commons/footer :: footer" class="container"></div>
+</body>
+</html>

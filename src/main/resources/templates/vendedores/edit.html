@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/header :: header"></head>
+<body>
+
+    <div th:replace="commons/menu :: menu"></div>
+    <div class="container-fluid">
+        <form class="row g-3" method="post" th:action="@{/vendedores/update}">
+            <div class="col-md-4">
+                <label for="codigo" class="form-label" th:text="#{vendedor.codigo}">Codigo</label>
+                <input type="text" class="form-control" id="codigo" name="codigo" th:value="${vendedor.codigo}" readonly>
+            </div>
+            <div class="col-md-4">
+                <label for="nombre" class="form-label" th:text="#{vendedor.nombre}">Nombre</label>
+                <input type="nombre" class="form-control" id="nombre" name="nombre" th:value="${vendedor.nombre}" >
+            </div>
+            <div class="col-md-4">
+                <label for="apellido" class="form-label" th:text="#{vendedor.apellido}">Apellidos</label>
+                <input type="text" class="form-control" id="apellidos" name="apellidos" th:value="${vendedor.apellidos}" >
+            </div>
+            <div class="col-md-4">
+                <label for="puesto" class="form-label" th:text="#{vendedor.puesto}">Puesto</label>
+                <input type="text" class="form-control" id="puesto" name="puesto">
+            </div>
+            <div class="col-4">
+                <a th:href="@{/vendedores/list}" href="list.html" class="btn btn-primary" th:text="#{list.atras}">Cancelar</a>
+                <button class="btn btn-primary" type="submit" th:text="#{list.actualizar}">Actualizar</button>
+            </div>
+        </form>
+    </div>
+
+    <div th:replace="commons/footer :: footer" class="container"></div>
+</body>
+</html>

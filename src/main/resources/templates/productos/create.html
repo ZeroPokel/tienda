@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/header :: header"></head>
+<body>
+
+    <div th:replace="commons/menu :: menu"></div>
+    <div class="container-fluid">
+        <form class="row g-3" method="post" th:action="@{/productos/save}">
+            <div class="col-md-4">
+                <label for="codigo" class="form-label" th:text="#{producto.codigo}">Codigo</label>
+                <input type="text" class="form-control" id="codigo" name="codigo" th:value="${producto.codigo}" readonly>
+            </div>
+            <div class="col-md-4">
+                <label for="nombre" class="form-label" th:text="#{producto.nombre}">Nombre</label>
+                <input type="nombre" class="form-control" id="nombre" name="nombre" th:value="${producto.nombre}" >
+            </div>
+            <div class="col-md-4">
+                <label for="descripcion" class="form-label" th:text="#{producto.descripcion}">Descripcion</label>
+                <input type="text" class="form-control" id="descripcion" name="descripcion" th:value="${producto.descripcion}" >
+            </div>
+            <div class="col-md-4">
+              <label for="precio" class="form-label" th:text="#{producto.precio}">Precio</label>
+              <input type="text" class="form-control" id="precio" name="precio" th:value="${producto.precio}" >
+            </div>
+            <div class="col-md-8"></div>
+            <div class="col-1">
+                <a th:href="@{/productos/list}" href="list.html" class="btn btn-primary" th:text="#{list.atras}">Cancelar</a>
+            </div>
+            <div class="col-1">
+                <input type="submit" class="btn btn-primary" th:value="#{list.crear}"></input>
+            </div>
+        </form>
+    </div>
+
+    <div th:replace="commons/footer :: footer" class="container"></div>
+</body>
+</html>

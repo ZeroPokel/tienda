@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/header :: header"> </head>
+<body>
+    
+  <div th:replace="commons/menu :: menu"></div>
+    
+    <!-- CARDS -->
+    <div class="container">
+      <a th:href="@{/vendedores/create}" th:text="#{list.crear}" href="create.html" class="btn btn-primary">Crear</a>
+        <div class="row">
+            <table class="table table-striped table-hover">
+              <caption th:text="#{vendedor.titulo}">Lista de vendedores</caption>
+                <thead>
+                  <tr>
+                    <th scope="col" th:text="#{vendedor.codigo}">Código</th>
+                    <th scope="col" th:text="#{vendedor.nombre}">Nombre</th>
+                    <th scope="col" th:text="#{vendedor.apellido}">Apellidos</th>
+                    <th scope="col" th:text="#{vendedor.puesto}">Puesto</th>
+                    <th scope="col" th:text="#{list.editar}">Editar</th>
+                    <th scope="col" th:text="#{list.eliminar}">Eliminar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <div th:each="vendedor : ${vendedores}" class="col-3">
+                        <tr>
+                            <th scope="row" th:text="${vendedor.codigo}">1</th>
+                            <td th:text="${vendedor.nombre}">Ejemplo</td>
+                            <td th:text="${vendedor.apellidos}">Apellido</td>
+                            <td th:text="${vendedor.puesto}">113</td>
+                            <td><a th:href="@{/vendedores/edit/}+${vendedor.codigo}" th:text="#{list.editar}" href="edit.html" class="btn btn-primary bi bi-pen"></a></td>
+                            <td><a th:href="@{/vendedores/delete/}+${vendedor.codigo}" th:text="#{list.borrar}" href="list.html" class="btn btn-primary bi bi-trash"></a></td>
+                        </tr>
+                    </div>
+                </tbody>
+            </table> 
+        </div>
+    </div>
+ 
+        <div class="row">
+            <div class="col-12">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                      <li class="page-item"><a class="page-link bi bi-arrow-left" href="#"></a></li>
+                      <li class="page-item"><a class="page-link" href="#">1</a></li>
+                      <li class="page-item"><a class="page-link" href="#">2</a></li>
+                      <li class="page-item"><a class="page-link" href="#">3</a></li>
+                      <li class="page-item"><a class="page-link bi bi-arrow-right" href="#"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+  <div th:replace="commons/footer :: footer" class="container"></div>
+</body>
+</html>
