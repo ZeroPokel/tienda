@@ -5,7 +5,7 @@
 
     <div th:replace="commons/menu :: menu"></div>
     <div class="container-fluid">
-        <form class="row g-3" method="post" th:action="@{/productos/update}">
+        <form class="row g-3" method="post" th:action="@{/productos/update}" enctype="multipart/form-data">
             <div class="col-md-4">
                 <label for="codigo" class="form-label" th:text="#{producto.codigo}">Codigo</label>
                 <input type="text" class="form-control" id="codigo" name="codigo" th:value="${producto.codigo}" readonly>
@@ -22,7 +22,14 @@
               <label for="precio" class="form-label" th:text="#{producto.precio}">Precio</label>
               <input type="text" class="form-control" id="precio" name="precio" th:value="${producto.precio}" >
             </div>
-            <div class="col-12">
+            <div class="col-md-12">
+                <label for="imageForm" class="form-label" th:text="#{producto.imagen}">Imagen</label>
+                <input type="file" class="form-control" id="imageForm" name="imageForm">
+            </div>
+            <div class="col-md-1">
+                <img th:src="'data:image/jpeg;base64,' + ${producto.imageView}" alt="" class="card-title" width="200em" height="200em">
+            </div>
+            <div class="col-md-12">
                 <a th:href="@{/productos/list}" href="list.html" class="btn btn-primary" th:text="#{list.atras}">Cancelar</a>
                 <button class="btn btn-primary" type="submit" th:text="#{list.actualizar}">Actualizar</button>
             </div>

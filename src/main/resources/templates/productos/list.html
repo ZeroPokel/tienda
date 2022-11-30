@@ -12,6 +12,7 @@
           <div th:each="producto : ${productos}" class="col-3">
             <div class="card" style="width: 18rem;">
               <div class="card-body">
+                <img th:src="'data:image/jpeg;base64,' + ${producto.imageView}" alt="" class="card-title" width="200em" height="200em">
                 <h5 th:text="${producto.nombre}" class="card-title">Producto</h5>
                 <p th:text="${producto.codigo}" class="card-text">Codigo producto.</p>
                 <p th:text="${producto.descripcion}" class="card-text">Descripción</p>

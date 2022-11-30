@@ -1,11 +1,14 @@
 package com.zeropokel.springprojects.tienda.model;
 
+import com.zeropokel.springprojects.tienda.utils.ImageUtil;
+
 public class Producto {
     
     private int codigo;
     private String nombre;
     private String descripcion;
     private float precio;
+    private byte[] img;
 
     public Producto() {
     }
@@ -47,7 +50,14 @@ public class Producto {
     public void setPrecio(float precio) {
         this.precio = precio;
     }
-    
+
+    public byte[] getImg() {
+        return img;
+    }
+
+    public void setImg(byte[] img) {
+        this.img = img;
+    }
 
     @Override
     public int hashCode() {
@@ -70,5 +80,9 @@ public class Producto {
             return false;
         return true;
     }
-    
+
+    public String getImageView(){
+        return ImageUtil.getImgData(this.img);
+    }
+
 }
