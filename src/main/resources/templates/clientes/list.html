@@ -31,7 +31,7 @@
                             <td th:text="${cliente.apellidos}">Apellido</td>
                             <td th:text="${cliente.telefono}">111222333</td>
                             <td th:text="${cliente.direccion}">Calle</td>
-                            <td th:text="${cliente.vip}  ? 'SI' : 'NO'">Vip</td>
+                            <td th:text="${cliente.vip}  ? #{cliente.vipsi} : 'No'">Vip</td>
                             <td><a th:href="@{/clientes/edit/}+${cliente.codigo}" th:text="#{list.editar}" href="edit.html" class="btn btn-primary bi bi-pen"></a></td>
                             <td><a th:href="@{/clientes/delete/}+${cliente.codigo}" th:text="#{list.borrar}" href="list.html" class="btn btn-primary bi bi-trash"></a></td>
                         </tr>
@@ -40,7 +40,10 @@
             </table> 
         </div>
     </div>
- 
+
+    <br>
+      <div th:replace="commons/pagination :: pagination"></div>
+      <!--
         <div class="row">
             <div class="col-12">
                 <nav aria-label="Page navigation example">
@@ -54,6 +57,7 @@
                 </nav>
             </div>
         </div>
+      -->
     </div>
 
   <div th:replace="commons/footer :: footer" class="container"></div>

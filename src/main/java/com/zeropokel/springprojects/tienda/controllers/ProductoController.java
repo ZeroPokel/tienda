@@ -32,8 +32,7 @@ public class ProductoController {
 
     @Value("${pagination.size}")
     int sizePage;
-
-
+    
     @GetMapping(value = "/list")
     public ModelAndView list(Model model){
         ModelAndView modelAndView = new ModelAndView();
@@ -130,7 +129,7 @@ public class ProductoController {
         productosService.delete(codigo);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("../../../list");
+        modelAndView.setViewName("redirect:/productos/list");
 
         return modelAndView;
     }

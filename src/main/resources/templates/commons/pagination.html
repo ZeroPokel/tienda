@@ -1,0 +1,52 @@
+    <!-- Paginacion-->
+    <div class="col-12" th:if="${totalPages > 1}" th:fragment="pagination">
+        <nav aria-label="Page navigation example" th:if="${totalPages gt 0}">
+
+          <ul class="pagination justify-content-center">
+
+            <li class="page-item" th:if="${numPage > 1}">
+              <a class="page-link"
+                th:href="@{../../../list/{numPage}/{fieldSort}/{directionSort}(numPage=1,fieldSort=${fieldSort},directionSort=${directionSort})}"
+                aria-label="Primero" title="Primero" th:text="#{list.primero}">Primero</a>
+            </li>
+
+            <li class="page-item" th:if="${numPage > 1}"
+              th:classappend="${ numPage > totalPages} ? 'disabled' ">
+              <a class="page-link"
+              th:href="@{../../../list/{numPage}/{fieldSort}/{directionSort}(numPage=${numPage-1},fieldSort=${fieldSort},directionSort=${directionSort})}"
+              aria-label="Anterior" title="Anterior" th:text="#{list.anterior}">Anterior</a>
+            </li>
+
+            <li class="page-item" th:classappend="${i eq numPage} ? 'active'"
+              th:each="i : ${#numbers.sequence( numPage , totalPages > 10 + numPage ? numPage + 10 : totalPages, 1)}">
+              <a class="page-link"
+                th:href="@{../../../list/{numPage}/{fieldSort}/{directionSort}(numPage=${i},fieldSort=${fieldSort},directionSort=${directionSort})}"
+                th:text="${i}" th:title="${'Página '+ i}" rel="tooltip"></a>
+            </li>
+
+            <li class="page-item disabled" th:if="${numPage + 10 < totalPages}">
+              <a class="page-link svg-icon" href="#">
+                <span data-feather="more-horizontal" width="20" height="20">...</span>
+              </a>
+            </li>
+
+            <li class="page-item" th:if="${numPage < totalPages}"
+              th:classappend="${numPage eq totalPages} ? 'disabled'">
+              <a class="page-link svg-icon"
+                th:href="@{../../../list/{numPage}/{fieldSort}/{directionSort}(numPage=${numPage+1},fieldSort=${fieldSort},directionSort=${directionSort})}"
+                aria-label="Siguiente" title="Siguiente" rel="tooltip">
+                <span aria-hidden="true" data-feather="chevrons-right" width="20" height="20" th:text="#{list.siguiente}">Siguiente</span>
+              </a>
+            </li>
+
+            <li class="page-item" th:if="${numPage < totalPages}"
+              th:classappend="${numPage eq totalPages} ? 'disabled'">
+              <a class="page-link"
+                th:href="@{../../../list/{numPage}/{fieldSort}/{directionSort}(numPage=${totalPages},fieldSort=${fieldSort},directionSort=${directionSort})}"
+                aria-label="Último" title="Último" th:text="#{list.ultimo}">Último</a>
+            </li>
+
+          </ul>
+
+        </nav>
+    </div>

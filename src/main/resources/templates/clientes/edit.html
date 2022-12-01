@@ -22,14 +22,14 @@
                 <label for="telefono" class="form-label" th:text="#{cliente.telefono}">Teléfono</label>
                 <input type="text" class="form-control" id="telefono" name="telefono" th:value="${cliente.telefono}" >
             </div>
-            <div class="col-md-8">
+            <div class="col-md-4">
                 <label for="direccion" class="form-label" th:text="#{cliente.direccion}">Dirección</label>
                 <input type="text" class="form-control" id="direccion" name="direccion" th:value="${cliente.direccion}" >
             </div>
-            <div class="col-12">
+            <div class="col-md-4">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="vip" name="vip" th:checked="${cliente.vip}" >
                     <label class="form-check-label" for="vip" th:text="#{cliente.vip}">VIP</label>
+                    <input class="form-check-input" type="checkbox" id="vip" name="vip" th:checked="${cliente.vip}" >
                 </div>
             </div>
             <div class="col-4">

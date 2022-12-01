@@ -7,10 +7,6 @@
     <div class="container-fluid">
         <form class="row g-3" method="post" th:action="@{/productos/save}" enctype="multipart/form-data">
             <div class="col-md-4">
-                <label for="codigo" class="form-label" th:text="#{producto.codigo}">Codigo</label>
-                <input type="text" class="form-control" id="codigo" name="codigo" th:value="${producto.codigo}" readonly>
-            </div>
-            <div class="col-md-4">
                 <label for="nombre" class="form-label" th:text="#{producto.nombre}">Nombre</label>
                 <input type="nombre" class="form-control" id="nombre" name="nombre" th:value="${producto.nombre}" >
             </div>
