@@ -117,7 +117,7 @@ public class ClienteController {
         clientesService.delete(codigo);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("clientes/list");
+        modelAndView.setViewName("redirect:/clientes/list");
 
         return modelAndView;
     }
