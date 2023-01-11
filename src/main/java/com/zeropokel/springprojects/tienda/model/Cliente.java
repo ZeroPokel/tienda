@@ -96,4 +96,9 @@ public class Cliente {
         this.vip = vip;
     }
 
+    @Override
+    public String toString() {
+        return "Cliente: " + nombre + " " + apellidos;
+    }
+
 }

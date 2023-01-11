@@ -97,10 +97,11 @@ public class ProductoController {
     @GetMapping(path = { "/edit/{codigo}" })
     public ModelAndView edit(
             @PathVariable(name = "codigo", required = true) int codigo) {
-
         Producto producto = productosService.findByID(codigo);
                 
+        boolean cesta = true;
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("cesta", cesta);
         modelAndView.addObject("producto", producto);
         modelAndView.setViewName("productos/edit");
         return modelAndView;

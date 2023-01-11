@@ -29,9 +29,16 @@
             <div class="col-md-1">
                 <img th:src="'data:image/jpeg;base64,' + ${producto.imageView}" alt="" class="card-title" width="200em" height="200em">
             </div>
-            <div class="col-md-12">
-                <a th:href="@{/productos/list}" href="list.html" class="btn btn-primary" th:text="#{list.atras}">Cancelar</a>
-                <button class="btn btn-primary" type="submit" th:text="#{list.actualizar}">Actualizar</button>
+            <div th:if="${cesta}">
+                <div class="col-md-12">
+                    <a th:href="@{/productos/list}" href="list.html" class="btn btn-primary" th:text="#{list.atras}">Cancelar</a>
+                    <button class="btn btn-primary" type="submit" th:text="#{list.actualizar}">Actualizar</button>
+                </div>
+            </div>
+            <div th:unless="${cesta}">
+                <div class = "col-md-12">
+                    <a th:href="@{/pedidos/facturar/}+${producto.codigo}" class="btn btn-primary bi bi-cart"></a>
+                </div>
             </div>
         </form>
     </div>

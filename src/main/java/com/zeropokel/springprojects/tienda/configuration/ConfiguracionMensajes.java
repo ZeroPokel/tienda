@@ -29,7 +29,7 @@ public class ConfiguracionMensajes implements WebMvcConfigurer{
     public LocaleResolver localeResolver(){
 
         SessionLocaleResolver sessionLocaleResolver = new SessionLocaleResolver();
-        sessionLocaleResolver.setDefaultLocale(new Locale("en"));
+        sessionLocaleResolver.setDefaultLocale(new Locale("es"));
 
         return sessionLocaleResolver;
     }

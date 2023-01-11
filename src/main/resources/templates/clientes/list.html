@@ -21,6 +21,7 @@
                     <th scope="col" th:text="#{cliente.vip}">VIP</th>
                     <th scope="col" th:text="#{list.editar}">Editar</th>
                     <th scope="col" th:text="#{list.eliminar}">Eliminar</th>
+                    <th scope="col" th:text="#{list.cesta}">Comprar</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -34,6 +35,7 @@
                             <td th:text="${cliente.vip}  ? #{cliente.vipsi} : 'No'">Vip</td>
                             <td><a th:href="@{/clientes/edit/}+${cliente.codigo}" th:text="#{list.editar}" href="edit.html" class="btn btn-primary bi bi-pen"></a></td>
                             <td><a th:href="@{/clientes/delete/}+${cliente.codigo}" th:text="#{list.borrar}" href="list.html" class="btn btn-primary bi bi-trash"></a></td>
+                            <td> <a th:href="@{/clientes/pedido/}+${cliente.codigo}" th:text="#{list.cesta}" href="list.html" class="btn btn-primary bi bi-cart"></a></td>
                         </tr>
                     </div>
                 </tbody>

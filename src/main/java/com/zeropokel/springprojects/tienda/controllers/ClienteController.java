@@ -3,6 +3,8 @@ package com.zeropokel.springprojects.tienda.controllers;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -120,6 +122,22 @@ public class ClienteController {
         modelAndView.setViewName("redirect:/clientes/list");
 
         return modelAndView;
+    }
+
+    @GetMapping(path = { "/pedido/{codigo}"})
+    public ModelAndView pedido(
+        @PathVariable(name = "codigo", required = true) int codigo, HttpSession session){
+
+        Cliente cliente = clientesService.findByID(codigo);
+        
+        session.setAttribute("cliente", cliente);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("cliente", cliente);
+        modelAndView.setViewName("pedidos/cesta");
+
+        return modelAndView;
+        
     }
 
     /* Metodo sin usar bases de datos
