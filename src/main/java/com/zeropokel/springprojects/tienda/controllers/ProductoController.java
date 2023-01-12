@@ -1,7 +1,10 @@
 package com.zeropokel.springprojects.tienda.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,6 +23,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import com.zeropokel.springprojects.tienda.model.DetallePedido;
+import com.zeropokel.springprojects.tienda.model.Pedido;
 import com.zeropokel.springprojects.tienda.model.Producto;
 import com.zeropokel.springprojects.tienda.services.ProductosService;
 
@@ -133,6 +138,36 @@ public class ProductoController {
         modelAndView.setViewName("redirect:/productos/list");
 
         return modelAndView;
+    }
+
+    @GetMapping(value = "/addcesta/{codigo}/{cantidad}")
+    public ModelAndView addCliente(
+        @PathVariable(name = "codigo", required = true) int codigo, @PathVariable(name = "cantidad", required = true) int cantidad,HttpSession session) {
+
+            Producto producto = productosService.findByID(codigo);
+
+            Pedido pedido = (Pedido) session.getAttribute("pedido");
+
+            if(pedido == null){
+                pedido = new Pedido();
+            }
+
+            if(pedido.getDetallepedidos() == null){
+                List<DetallePedido> detallePedidos = new ArrayList<DetallePedido>();
+                pedido.setDetallepedidos(detallePedidos);
+            }
+
+            DetallePedido detalle = new DetallePedido();
+            detalle.setProducto(producto);
+            detalle.setCantidad(cantidad);
+            detalle.setSubtotal(cantidad*producto.getPrecio());
+            pedido.getDetallepedidos().add(detalle);
+
+            session.setAttribute("pedido", pedido);
+
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("redirect:/cesta/edit");
+            return modelAndView;
     }
     
 }

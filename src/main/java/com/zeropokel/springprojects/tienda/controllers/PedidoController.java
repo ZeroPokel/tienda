@@ -1,11 +1,18 @@
 package com.zeropokel.springprojects.tienda.controllers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,67 +25,82 @@ import com.zeropokel.springprojects.tienda.model.DetallePedido;
 import com.zeropokel.springprojects.tienda.model.Pedido;
 import com.zeropokel.springprojects.tienda.model.Producto;
 import com.zeropokel.springprojects.tienda.services.ClientesService;
+import com.zeropokel.springprojects.tienda.services.PedidosService;
 import com.zeropokel.springprojects.tienda.services.ProductosService;
 
 @Controller
 @RequestMapping("/pedidos")
 public class PedidoController {
     
-
     @Autowired
-    ClientesService clientesService;
+    PedidosService pedidosService;
 
-    @Autowired
-    ProductosService productosService;
+    @Value("${pagination.size}")
+    int sizePage;
 
-    @GetMapping(path = { "/comprar/{codigo}"})
-    public ModelAndView comprar(
-        @PathVariable(name = "codigo", required = true) int codigo, HttpSession session){
 
-            Producto producto = productosService.findByID(codigo);
-            boolean cesta = false;
-            
-            ModelAndView modelAndView = new ModelAndView();
-            modelAndView.addObject("cesta", cesta);
-            modelAndView.addObject("producto", producto);
-            modelAndView.setViewName("productos/edit");
+    @GetMapping(value = "/list")
+    public ModelAndView list(Model model){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:list/1/codigo/desc");
+        return modelAndView;
+    }
+  
+    @GetMapping(value = "/list/{numPage}/{fieldSort}/{directionSort}")
+    public ModelAndView listPage(Model model,
+            @PathVariable("numPage") Integer numPage,
+            @PathVariable("fieldSort") String fieldSort,
+            @PathVariable("directionSort") String directionSort) {
+
+
+        Pageable pageable = PageRequest.of(numPage - 1, sizePage,
+            directionSort.equals("asc") ? Sort.by(fieldSort).ascending() : Sort.by(fieldSort).descending());
+
+        Page<Pedido> page = pedidosService.findAll(pageable);
+
+        List<Pedido> pedidos = page.getContent();
+
+        ModelAndView modelAndView = new ModelAndView("pedidos/list");
+        modelAndView.addObject("pedidos", pedidos);
+
+
+		modelAndView.addObject("numPage", numPage);
+		modelAndView.addObject("totalPages", page.getTotalPages());
+		modelAndView.addObject("totalElements", page.getTotalElements());
+
+		modelAndView.addObject("fieldSort", fieldSort);
+		modelAndView.addObject("directionSort", directionSort.equals("asc") ? "asc" : "desc");
 
         return modelAndView;
     }
 
-    @GetMapping(path = { "/facturar/{codigo}"})
-    public ModelAndView facturar(
-        @PathVariable(name = "codigo", required = true) int codigo, HttpSession session)
-        {
+    @GetMapping(path = { "/edit/{codigo}" })
+    public ModelAndView edit(
+            @PathVariable(name = "codigo", required = true) int codigo, final Locale locale) {
 
-            Cliente cliente = (Cliente) session.getAttribute("cliente");
-            Producto producto = productosService.findByID(codigo);
+        Pedido pedido = pedidosService.findByID(codigo);
 
-            DetallePedido detallePedido = new DetallePedido();
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("pedido", pedido);
 
-            detallePedido.setProducto(producto);
-            
-            ArrayList<DetallePedido> pedidoArray = new ArrayList<>();
+        modelAndView.setViewName("pedidos/edit");
+        return modelAndView;
+    }
 
-            if (session.getAttribute("pedidoTotal") != null){
-                pedidoArray = (ArrayList<DetallePedido>) session.getAttribute("pedidoTotal");
-            }
-            pedidoArray.add(detallePedido);
+    @GetMapping(path = { "/save" })
+    public ModelAndView save(HttpSession session)
+            throws IOException {
 
-            session.setAttribute("pedidoTotal", pedidoArray);
+        Pedido pedido = (Pedido) session.getAttribute("pedido");
 
-            ModelAndView modelAndView = new ModelAndView();
-            modelAndView.addObject("pedidoTotal", pedidoArray);
-            modelAndView.addObject("cliente", cliente);
-            modelAndView.setViewName("pedidos/cesta");
+        pedidosService.insert(pedido);
+
+        session.removeAttribute("pedido");
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:list");
 
         return modelAndView;
     }
 
-    @GetMapping(value = "/cesta")
-    public ModelAndView cesta(Model model){
-        ModelAndView modelAndView = new ModelAndView("cesta");
-
-        return modelAndView;
-    }
 }

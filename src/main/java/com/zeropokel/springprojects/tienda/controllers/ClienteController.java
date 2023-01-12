@@ -21,6 +21,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import com.zeropokel.springprojects.tienda.model.Cliente;
+import com.zeropokel.springprojects.tienda.model.Pedido;
 import com.zeropokel.springprojects.tienda.services.ClientesService;
 
 @Controller
@@ -127,39 +128,22 @@ public class ClienteController {
     @GetMapping(path = { "/pedido/{codigo}"})
     public ModelAndView pedido(
         @PathVariable(name = "codigo", required = true) int codigo, HttpSession session){
+            Cliente cliente = clientesService.findByID(codigo);
 
-        Cliente cliente = clientesService.findByID(codigo);
-        
-        session.setAttribute("cliente", cliente);
+            Pedido pedido = (Pedido) session.getAttribute("pedido");
 
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("cliente", cliente);
-        modelAndView.setViewName("pedidos/cesta");
+            if(pedido == null){
+                pedido = new Pedido();
+            }
 
-        return modelAndView;
+            pedido.setCliente(cliente);
+
+            session.setAttribute("pedido", pedido);
+
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("redirect:/cesta/edit");
+            return modelAndView;
         
     }
 
-    /* Metodo sin usar bases de datos
-
-        private Cliente getCliente(int codigo) {
-
-            List<Cliente> clientes = getClientes();
-            int indexOf = clientes.indexOf(new Cliente(codigo));
-
-            return clientes.get(indexOf);
-        }
-
-        private List<Cliente> getClientes() {
-
-            ArrayList<Cliente> clientes = new ArrayList<Cliente>();
-
-            clientes.add(new Cliente(1, "Miguel Angel", "Femenia Vazquez", "777888999", "Calle Falsa 123", false));
-            clientes.add(new Cliente(2, "Jose Carlos", "Lopez Lopez", "555666777", "Calle España 82", true));
-            clientes.add(new Cliente(3, "Maria del Carmen", "Bellido Sanchez", "333444555", "Calle Numancia 2", false));
-
-            return clientes;
-        }
-        
-    */
 }

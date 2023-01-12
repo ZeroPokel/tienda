@@ -1,5 +1,6 @@
 package com.zeropokel.springprojects.tienda.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,6 +12,8 @@ public class Pedido {
     private float total;
 
     public Pedido() {
+        this.cliente = new Cliente();
+        this.detallepedidos = new ArrayList<DetallePedido>();
     }
 
     public Pedido(int codigo) {
@@ -45,8 +48,8 @@ public class Pedido {
         return detallepedidos;
     }
 
-    public void setDetallepedidos(DetallePedido detallePedido) {
-        this.detallepedidos = (List<DetallePedido>) detallePedido;
+    public void setDetallepedidos(List<DetallePedido> detPedidos) {
+        this.detallepedidos = (List<DetallePedido>) detPedidos;
     }
 
     public Date getFecha() {
@@ -63,6 +66,16 @@ public class Pedido {
 
     public void setTotal(float total) {
         this.total = total;
+    }
+
+    public double getTotalCesta() {
+
+        total = 0;
+        for (DetallePedido detalle : this.detallepedidos) {
+            total += detalle.getCantidad()*detalle.getProducto().getPrecio();
+        }
+
+        return total;
     }
 
     @Override

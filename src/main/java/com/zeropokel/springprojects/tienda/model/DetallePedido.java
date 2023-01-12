@@ -5,6 +5,7 @@ public class DetallePedido {
     private int codigo;
     private Producto producto;
     private int cantidad;
+    private float subtotal;
 
     public DetallePedido() {
     }
@@ -43,5 +44,12 @@ public class DetallePedido {
         this.cantidad = cantidad;
     }
 
-    
+    public float getSubtotal() {
+        return subtotal;
+    }
+
+    public void setSubtotal(float subtotal) {
+        this.subtotal = subtotal;
+    }
+
 }
