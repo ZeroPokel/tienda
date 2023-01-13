@@ -29,6 +29,9 @@
               <li class="nav-item">
                 <a class="nav-link" th:href="@{/clientes/pedido/}+${session.pedido.cliente.codigo}" th:text="#{menu.cesta}" th:if="${session ne null and session.pedido ne null}" href="../vendedores/list.html">Vendedor</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" th:href="@{/pedidos/list}" href="pedidos/list.html"  th:text="#{menu.pedidos}">Pedidos</a>
+            </li> 
             </ul>
 
             <ul class="navbar-nav">
