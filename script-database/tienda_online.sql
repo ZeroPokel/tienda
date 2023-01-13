@@ -36,6 +36,46 @@ CREATE TABLE `Clientes` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `Detalle_Pedido`
+--
+
+DROP TABLE IF EXISTS `Detalle_Pedido`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Detalle_Pedido` (
+  `codigo` int NOT NULL AUTO_INCREMENT,
+  `cantidad` int NOT NULL,
+  `precio` float NOT NULL,
+  `total` float NOT NULL,
+  `codigo_pedido` int NOT NULL,
+  `codigo_producto` int NOT NULL,
+  PRIMARY KEY (`codigo`),
+  KEY `fk_Detalle_Pedido_1_idx` (`codigo_pedido`),
+  KEY `fk_Detalle_Pedido_2_idx` (`codigo_producto`),
+  CONSTRAINT `fk_Detalle_Pedido_1` FOREIGN KEY (`codigo_pedido`) REFERENCES `Pedidos` (`codigo`),
+  CONSTRAINT `fk_Detalle_Pedido_2` FOREIGN KEY (`codigo_producto`) REFERENCES `Productos` (`codigo`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `Pedidos`
+--
+
+DROP TABLE IF EXISTS `Pedidos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Pedidos` (
+  `codigo` int NOT NULL AUTO_INCREMENT,
+  `total` float NOT NULL,
+  `fecha` datetime NOT NULL,
+  `codigo_cliente` int NOT NULL,
+  PRIMARY KEY (`codigo`),
+  KEY `fk_Pedidos_1_idx` (`codigo_cliente`),
+  CONSTRAINT `fk_Pedidos_1` FOREIGN KEY (`codigo_cliente`) REFERENCES `Clientes` (`codigo`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `Productos`
 --
 
@@ -51,106 +91,6 @@ CREATE TABLE `Productos` (
   PRIMARY KEY (`codigo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping events for database 'tienda_online'
---
-
---
--- Dumping routines for database 'tienda_online'
---
-/*!50003 DROP PROCEDURE IF EXISTS `duplicar_datos_clientes` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`tienda`@`%` PROCEDURE `duplicar_datos_clientes`()
-BEGIN
-
-declare _codigo int;
-declare _nombre varchar(100);
-    declare _apellidos varchar(1000);
-    declare _direccion varchar(200);
-	declare _vip tinyint;
-    declare _telefono varchar(45);
-DECLARE contador INT DEFAULT 0;
-
-declare clientes_cursor cursor for
-    select * from Clientes;
-   
-    DECLARE EXIT HANDLER FOR NOT FOUND SET contador = 0;
-
-    open clientes_cursor;
-   
-    loop1: loop
-   
-fetch clientes_cursor into _codigo, _nombre, _apellidos,
-_direccion, _vip, _telefono;
-
-insert into Clientes (nombre, apellidos, direccion, vip, telefono)
-values(_nombre, _apellidos, _direccion, _vip, _telefono);
-   
-    end loop loop1;
-   
-    close clientes_cursor;
-
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `duplicar_datos_productos` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`tienda`@`%` PROCEDURE `duplicar_datos_productos`()
-BEGIN
-
-declare _codigo int;
-declare _nombre varchar(100);
-    declare _descripcion varchar(1000);
-    declare _precio float;
-    declare _img blob;
-DECLARE contador INT DEFAULT 0;
-
-declare productos_cursor cursor for
-    select * from Productos;
-   
-    DECLARE EXIT HANDLER FOR NOT FOUND SET contador = 0;
-
-    open productos_cursor;
-   
-    loop1: loop
-   
-fetch productos_cursor into _codigo, _nombre, _descripcion,
-_precio, _img;
-
-insert into Productos (nombre, descripcion, precio, img)
-values(_nombre, _descripcion, _precio, _img);
-   
-    end loop loop1;
-   
-    close productos_cursor;
-
-
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -161,4 +101,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-02 12:51:07
+-- Dump completed on 2023-01-13 13:12:48
