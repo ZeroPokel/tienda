@@ -51,7 +51,7 @@
             </tr>
           </tbody>
         </table>
-        <div class="row">
+        <div class="row" th:if="${#lists.size(pedido.detallepedidos)} != 0">
           <div class="col-lg-3">
             <a th:href="@{/pedidos/save}" class="btn btn-primary btn-sm mb-3">Tramitar pedido</a>
           </div>
