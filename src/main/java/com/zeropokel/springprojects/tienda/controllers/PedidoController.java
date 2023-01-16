@@ -25,12 +25,16 @@ import com.zeropokel.springprojects.tienda.model.DetallePedido;
 import com.zeropokel.springprojects.tienda.model.Pedido;
 import com.zeropokel.springprojects.tienda.model.Producto;
 import com.zeropokel.springprojects.tienda.services.ClientesService;
+import com.zeropokel.springprojects.tienda.services.DetallePedidosService;
 import com.zeropokel.springprojects.tienda.services.PedidosService;
 import com.zeropokel.springprojects.tienda.services.ProductosService;
 
 @Controller
 @RequestMapping("/pedidos")
 public class PedidoController {
+
+    @Autowired
+    DetallePedidosService detallePedidosService;
     
     @Autowired
     PedidosService pedidosService;
@@ -102,5 +106,18 @@ public class PedidoController {
 
         return modelAndView;
     }
+
+    @GetMapping(path = { "/delete/{codigo}" })
+    public ModelAndView delete(
+        @PathVariable(name = "codigo", required = true) int codigo, HttpSession session)
+        throws IOException {
+
+            detallePedidosService.delete(codigo);
+            pedidosService.delete(codigo);
+
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("redirect:/pedidos/list");;
+            return modelAndView;
+        }
 
 }

@@ -29,7 +29,9 @@
                   <td th:text="${pedido.fecha}">Mark</td>
                   <td th:text="${pedido.total}">Mark</td>
                   <td>
+                    
                     <a class="btn btn-primary" th:href="@{/pedidos/edit/}+${pedido.codigo}" href="#" role="button"><i class="bi bi-pencil-square"></i></a>
+                    <a class="btn btn-primary" th:href="@{/pedidos/delete/}+${pedido.codigo}" href="#" role="button"><i class="bi bi-trash"></i></a>
                   </td>
                 </tr>
               </tbody>

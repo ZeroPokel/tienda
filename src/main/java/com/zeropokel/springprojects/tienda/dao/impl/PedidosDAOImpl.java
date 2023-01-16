@@ -74,7 +74,7 @@ public class PedidosDAOImpl extends JdbcDaoSupport implements PedidosDAO{
 
     @Override
     public Pedido findByID(int codigo) {
-        String query = "select p.*, c.nombre from Pedidos p where p.codigo = ?";
+        String query = "select p.* from Pedidos p where p.codigo = ?";
 
         Object params [] = {codigo};
         int types [] = {Types.INTEGER};
@@ -87,7 +87,7 @@ public class PedidosDAOImpl extends JdbcDaoSupport implements PedidosDAO{
                 Pedido pedido = new Pedido();
                 pedido.setCodigo(rs.getInt("codigo"));
                 pedido.setCliente(new Cliente(rs.getInt("codigo_cliente")));
-                // pedido.getCliente().setNombre(rs.getString("nombre"));
+                //pedido.getCliente().setNombre(rs.getString("nombre"));
                 pedido.setFecha(new java.util.Date(rs.getDate("fecha").getTime()));
                 pedido.setTotal(rs.getFloat("total"));
                 return pedido;
@@ -132,6 +132,8 @@ public class PedidosDAOImpl extends JdbcDaoSupport implements PedidosDAO{
 
     @Override
     public void delete(int codigo) {
+        
+
         String query = "delete from Pedidos where codigo = ?";
 
         Object[] params = {

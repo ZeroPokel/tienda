@@ -10,4 +10,5 @@ public interface DetallePedidoDAO {
     public void insert(Pedido pedido, DetallePedido detallePedido);
 
     public List<DetallePedido> findDetalle(Pedido pedido);
+    public void delete(int codigo);
 }
