@@ -1,21 +1,42 @@
 package com.zeropokel.springprojects.tienda.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+
+@Entity
 public class Proveedor {
 
+    @Id
+    @GeneratedValue
     private int codigo;
     private String nombre;
     private String apellidos;
+    private String telefono;
+    private String direccion;
+    private boolean vip = false;
+    
+    public Proveedor(int codigo) {
+        this.codigo = codigo;
+    }
+
+    public Proveedor(int codigo, String nombre, String apellidos, String telefono, String direccion, boolean vip) {
+        this.codigo = codigo;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.telefono = telefono;
+        this.direccion = direccion;
+        this.vip = vip;
+    }
 
     public Proveedor() {
     }
 
-    public Proveedor(int codigo, String nombre, String apellidos) {
-        this.codigo = codigo;
-        this.nombre = nombre;
-        this.apellidos = apellidos;
+    public int getCodigo() {
+        return codigo;
     }
 
-    public Proveedor(int codigo) {
+    public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
 
@@ -35,15 +56,23 @@ public class Proveedor {
         this.apellidos = apellidos;
     }
 
-    public int getCodigo() {
-        return codigo;
+    public String getTelefono() {
+        return telefono;
     }
 
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -65,5 +94,18 @@ public class Proveedor {
             return false;
         return true;
     }
-    
+
+    public boolean getVip() {
+        return vip;
+    }
+
+    public void setVip(boolean vip) {
+        this.vip = vip;
+    }
+
+    @Override
+    public String toString() {
+        return "Proveedor: " + nombre + " " + apellidos;
+    }
+
 }

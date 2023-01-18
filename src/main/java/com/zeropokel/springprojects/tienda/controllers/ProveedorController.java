@@ -1,27 +1,67 @@
 package com.zeropokel.springprojects.tienda.controllers;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+
 import com.zeropokel.springprojects.tienda.model.Proveedor;
+import com.zeropokel.springprojects.tienda.services.ProveedoresService;
 
 @Controller
 @RequestMapping("/proveedores")
 public class ProveedorController {
 
-    @RequestMapping(value = "/list")
-    public ModelAndView list() {
+    @Autowired
+    ProveedoresService proveedoresService;
 
+    @Value("${pagination.size}")
+    int sizePage;
+
+    @GetMapping(value = "/list")
+    public ModelAndView list(Model model) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("proveedores", getProveedores());
-        modelAndView.setViewName("proveedores/list");
+        modelAndView.setViewName("redirect:list/1/codigo/asc");
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/list/{numPage}/{fieldSort}/{directionSort}")
+    public ModelAndView listPage(Model model,
+            @PathVariable("numPage") Integer numPage,
+            @PathVariable("fieldSort") String fieldSort,
+            @PathVariable("directionSort") String directionSort) {
+
+
+        Pageable pageable = PageRequest.of(numPage - 1, sizePage,
+            directionSort.equals("asc") ? Sort.by(fieldSort).ascending() : Sort.by(fieldSort).descending());
+
+        Page<Proveedor> page = proveedoresService.findAll(pageable);
+
+        List<Proveedor> proveedores = page.getContent();
+
+        ModelAndView modelAndView = new ModelAndView("proveedores/list");
+        modelAndView.addObject("proveedores", proveedores);
+
+
+        modelAndView.addObject("numPage", numPage);
+        modelAndView.addObject("totalPages", page.getTotalPages());
+        modelAndView.addObject("totalElements", page.getTotalElements());
+
+        modelAndView.addObject("fieldSort", fieldSort);
+        modelAndView.addObject("directionSort", directionSort.equals("asc") ? "asc" : "desc");
 
         return modelAndView;
     }
@@ -37,14 +77,12 @@ public class ProveedorController {
     }
 
     @PostMapping(path = "/save")
-    public ModelAndView save(Proveedor proveedor){
+    public ModelAndView save(Proveedor proveedor) throws IOException{
 
-        List<Proveedor> proveedores = getProveedores();
-        proveedores.add(proveedor);
+        proveedoresService.insert(proveedor);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("proveedores", proveedores);
-        modelAndView.setViewName("proveedores/list");
+        modelAndView.setViewName("redirect:edit/" + proveedor.getCodigo());
 
         return modelAndView;
     }
@@ -53,8 +91,10 @@ public class ProveedorController {
     public ModelAndView edit(
             @PathVariable(name = "codigo", required = true) int codigo) {
 
+        Proveedor proveedor = proveedoresService.findByID(codigo);
+                
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("proveedor", getProveedor(codigo));
+        modelAndView.addObject("proveedor", proveedor);
         modelAndView.setViewName("proveedores/edit");
         return modelAndView;
     }
@@ -62,15 +102,10 @@ public class ProveedorController {
     @PostMapping(path = { "/update" })
     public ModelAndView update(Proveedor proveedor) {
 
-        List<Proveedor> proveedores = getProveedores();
-
-        int indexOf = proveedores.indexOf(proveedor);
-
-        proveedores.set(indexOf, proveedor);
+        proveedoresService.update(proveedor);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("proveedores", proveedores);
-        modelAndView.setViewName("proveedores/list");
+        modelAndView.setViewName("redirect:edit/" + proveedor.getCodigo());
         
         return modelAndView;
     }
@@ -79,32 +114,12 @@ public class ProveedorController {
     public ModelAndView delete(
             @PathVariable(name = "codigo", required = true) int codigo) {
 
-        List<Proveedor> proveedores = getProveedores();
-        proveedores.remove(getProveedor(codigo));
+        proveedoresService.delete(codigo);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("proveedores", proveedores);
-        modelAndView.setViewName("proveedores/list");
+        modelAndView.setViewName("redirect:/proveedores/list");
 
         return modelAndView;
     }
 
-    private Proveedor getProveedor(int codigo) {
-
-        List<Proveedor> proveedores = getProveedores();
-        int indexOf = proveedores.indexOf(new Proveedor(codigo));
-
-        return proveedores.get(indexOf);
-    }
-
-    private List<Proveedor> getProveedores() {
-
-        ArrayList<Proveedor> proveedores = new ArrayList<Proveedor>();
-
-        proveedores.add(new Proveedor(1, "Miguel Angel", "Femenia Vazquez"));
-        proveedores.add(new Proveedor(2, "Jose Carlos", "Lopez Lopez"));
-        proveedores.add(new Proveedor(3, "Maria del Carmen", "Bellido Sanchez"));
-
-        return proveedores;
-    }
 }

@@ -16,6 +16,9 @@
                     <th scope="col" th:text="#{proveedor.codigo}">Código</th>
                     <th scope="col" th:text="#{proveedor.nombre}">Nombre</th>
                     <th scope="col" th:text="#{proveedor.apellido}">Apellidos</th>
+                    <th scope="col" th:text="#{proveedor.telefono}">Teléfono</th>
+                    <th scope="col" th:text="#{proveedor.direccion}">Direccion</th>
+                    <th scope="col" th:text="#{proveedor.vip}">VIP</th>
                     <th scope="col" th:text="#{list.editar}">Editar</th>
                     <th scope="col" th:text="#{list.eliminar}">Eliminar</th>
                   </tr>
@@ -26,6 +29,9 @@
                             <th scope="row" th:text="${proveedor.codigo}">1</th>
                             <td th:text="${proveedor.nombre}">Ejemplo</td>
                             <td th:text="${proveedor.apellidos}">Apellido</td>
+                            <td th:text="${proveedor.telefono}">111222333</td>
+                            <td th:text="${proveedor.direccion}">Calle</td>
+                            <td th:text="${proveedor.vip}  ? #{proveedor.vipsi} : 'No'">Vip</td>
                             <td><a th:href="@{/proveedores/edit/}+${proveedor.codigo}" th:text="#{list.editar}" href="edit.html" class="btn btn-primary bi bi-pen"></a></td>
                             <td><a th:href="@{/proveedores/delete/}+${proveedor.codigo}" th:text="#{list.borrar}" href="list.html" class="btn btn-primary bi bi-trash"></a></td>
                         </tr>

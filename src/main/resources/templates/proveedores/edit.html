@@ -19,6 +19,20 @@
                 <input type="text" class="form-control" id="apellidos" name="apellidos" th:value="${proveedor.apellidos}" >
             </div>
             <div class="col-4">
+            <div class="col-md-4">
+                <label for="telefono" class="form-label" th:text="#{proveedor.telefono}">Teléfono</label>
+                <input type="text" class="form-control" id="telefono" name="telefono" th:value="${proveedor.telefono}" >
+            </div>
+            <div class="col-md-4">
+                <label for="direccion" class="form-label" th:text="#{proveedor.direccion}">Dirección</label>
+                <input type="text" class="form-control" id="direccion" name="direccion" th:value="${proveedor.direccion}" >
+            </div>
+            <div class="col-md-4">
+                <div class="form-check">
+                    <label class="form-check-label" for="vip" th:text="#{proveedor.vip}">VIP</label>
+                    <input class="form-check-input" type="checkbox" id="vip" name="vip" th:checked="${proveedor.vip}" >
+                </div>
+            </div>
                 <a th:href="@{/proveedores/list}" href="list.html" class="btn btn-primary" th:text="#{list.atras}">Cancelar</a>
                 <button class="btn btn-primary" type="submit" th:text="#{list.actualizar}">Actualizar</button>
             </div>
