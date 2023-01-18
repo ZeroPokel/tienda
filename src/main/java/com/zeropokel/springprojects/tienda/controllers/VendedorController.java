@@ -1,27 +1,67 @@
 package com.zeropokel.springprojects.tienda.controllers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import com.zeropokel.springprojects.tienda.model.Vendedor;
+import com.zeropokel.springprojects.tienda.services.VendedoresService;
 
 @Controller
 @RequestMapping("/vendedores")
 public class VendedorController {
 
-    @RequestMapping(value = "/list")
-    public ModelAndView list() {
+    @Autowired
+    VendedoresService vendedoresService;
 
+    @Value("${pagination.size}")
+    int sizePage;
+
+    @GetMapping(value = "/list")
+    public ModelAndView list(Model model) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("vendedores", getVendedores());
-        modelAndView.setViewName("vendedores/list");
+        modelAndView.setViewName("redirect:list/1/codigo/asc");
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/list/{numPage}/{fieldSort}/{directionSort}")
+    public ModelAndView listPage(Model model,
+            @PathVariable("numPage") Integer numPage,
+            @PathVariable("fieldSort") String fieldSort,
+            @PathVariable("directionSort") String directionSort) {
+
+
+        Pageable pageable = PageRequest.of(numPage - 1, sizePage,
+            directionSort.equals("asc") ? Sort.by(fieldSort).ascending() : Sort.by(fieldSort).descending());
+
+        Page<Vendedor> page = vendedoresService.findAll(pageable);
+
+        List<Vendedor> vendedores = page.getContent();
+
+        ModelAndView modelAndView = new ModelAndView("vendedores/list");
+        modelAndView.addObject("vendedores", vendedores);
+
+
+        modelAndView.addObject("numPage", numPage);
+        modelAndView.addObject("totalPages", page.getTotalPages());
+        modelAndView.addObject("totalElements", page.getTotalElements());
+
+        modelAndView.addObject("fieldSort", fieldSort);
+        modelAndView.addObject("directionSort", directionSort.equals("asc") ? "asc" : "desc");
 
         return modelAndView;
     }
@@ -37,14 +77,12 @@ public class VendedorController {
     }
 
     @PostMapping(path = "/save")
-    public ModelAndView save(Vendedor vendedor){
+    public ModelAndView save(Vendedor vendedor) throws IOException{
 
-        List<Vendedor> vendedores = getVendedores();
-        vendedores.add(vendedor);
+        vendedoresService.insert(vendedor);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("vendedores", vendedores);
-        modelAndView.setViewName("vendedores/list");
+        modelAndView.setViewName("redirect:edit/" + vendedor.getCodigo());
 
         return modelAndView;
     }
@@ -53,8 +91,10 @@ public class VendedorController {
     public ModelAndView edit(
             @PathVariable(name = "codigo", required = true) int codigo) {
 
+        Vendedor vendedor = vendedoresService.findByID(codigo);
+                
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("vendedor", getVendedor(codigo));
+        modelAndView.addObject("vendedor", vendedor);
         modelAndView.setViewName("vendedores/edit");
         return modelAndView;
     }
@@ -62,15 +102,10 @@ public class VendedorController {
     @PostMapping(path = { "/update" })
     public ModelAndView update(Vendedor vendedor) {
 
-        List<Vendedor> vendedores = getVendedores();
-
-        int indexOf = vendedores.indexOf(vendedor);
-
-        vendedores.set(indexOf, vendedor);
+        vendedoresService.update(vendedor);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("vendedores", vendedores);
-        modelAndView.setViewName("vendedores/list");
+        modelAndView.setViewName("redirect:edit/" + vendedor.getCodigo());
         
         return modelAndView;
     }
@@ -79,33 +114,13 @@ public class VendedorController {
     public ModelAndView delete(
             @PathVariable(name = "codigo", required = true) int codigo) {
 
-        List<Vendedor> vendedores = getVendedores();
-        vendedores.remove(getVendedor(codigo));
+        vendedoresService.delete(codigo);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("vendedores", vendedores);
-        modelAndView.setViewName("vendedores/list");
+        modelAndView.setViewName("redirect:/vendedores/list");
 
         return modelAndView;
     }
 
-    private Vendedor getVendedor(int codigo) {
-
-        List<Vendedor> vendedores = getVendedores();
-        int indexOf = vendedores.indexOf(new Vendedor(codigo));
-
-        return vendedores.get(indexOf);
-    }
-
-    private List<Vendedor> getVendedores() {
-
-        ArrayList<Vendedor> vendedores = new ArrayList<Vendedor>();
-
-        vendedores.add(new Vendedor(1, "Miguel Angel", "Femenia Vazquez", "34"));
-        vendedores.add(new Vendedor(2, "Jose Carlos", "Lopez Lopez", "2"));
-        vendedores.add(new Vendedor(3, "Maria del Carmen", "Bellido Sanchez", "50"));
-
-        return vendedores;
-    }
 }
 
