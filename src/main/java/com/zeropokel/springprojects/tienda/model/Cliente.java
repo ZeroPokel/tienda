@@ -1,8 +1,11 @@
 package com.zeropokel.springprojects.tienda.model;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Cliente {
@@ -15,6 +18,9 @@ public class Cliente {
     private String telefono;
     private String direccion;
     private boolean vip = false;
+
+    @OneToMany(mappedBy= "cliente")
+    private Set<Pedido> pedido;
     
     public Cliente(int codigo) {
         this.codigo = codigo;
