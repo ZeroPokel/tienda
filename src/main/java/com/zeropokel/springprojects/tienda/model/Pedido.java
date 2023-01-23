@@ -4,17 +4,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.PrePersist;
 import javax.persistence.Transient;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Pedido {
@@ -29,8 +25,6 @@ public class Pedido {
     @Transient
     private List<DetallePedido> detallepedidos;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "fecha", updatable = false, length=100, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Date fecha;
     
     private float total;
@@ -124,4 +118,8 @@ public class Pedido {
         return true;
     }
 
+    @PrePersist
+    private void prePersistFecha(){
+        this.fecha = new Date();
+    }
 }

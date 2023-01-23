@@ -34,6 +34,9 @@ import com.zeropokel.springprojects.tienda.services.ProductosService;
 public class PedidoController {
 
     @Autowired
+    ClientesService clientesService;
+
+    @Autowired
     DetallePedidosService detallePedidosService;
     
     @Autowired
@@ -112,7 +115,7 @@ public class PedidoController {
         @PathVariable(name = "codigo", required = true) int codigo, HttpSession session)
         throws IOException {
 
-            detallePedidosService.delete(codigo);
+            /*detallePedidosService.delete(codigo);*/
             pedidosService.delete(codigo);
 
             ModelAndView modelAndView = new ModelAndView();

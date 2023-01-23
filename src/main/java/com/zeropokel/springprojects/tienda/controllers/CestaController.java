@@ -53,8 +53,6 @@ public class CestaController {
         return modelAndView;    
     }
 
-
-
     @GetMapping(value = "/deleteproducto/{codigo}")
     public ModelAndView addCliente(
         @PathVariable(name = "codigo", required = true) int codigo, HttpSession session) {
@@ -75,4 +73,5 @@ public class CestaController {
             modelAndView.setViewName("redirect:/cesta/edit");
             return modelAndView;
     }
+
 }
