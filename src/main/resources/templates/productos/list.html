@@ -18,7 +18,7 @@
                 <p th:text="${producto.descripcion}" class="card-text">Descripción</p>
                 <p th:text="${producto.precio}" class="card-text">Precio</p>
                 <div th:if="${session ne null and session.pedido ne null}">
-                  <a class="btn btn-primary" th:href="@{/productos/addcesta/{codigo}/{cantidad}(codigo=${producto.codigo},cantidad=2)}" role="button"><i class="bi bi-cart3"></i></a>
+                  <a class="btn btn-primary" th:href="@{/productos/addcesta/{codigo}/{cantidad}(codigo=${producto.codigo},cantidad=1)}" role="button"><i class="bi bi-cart3"></i></a>
                 </div>
                 <a th:href="@{/productos/edit/}+${producto.codigo}" th:text="#{list.editar}" href="edit.html" class="btn btn-primary">Editar</a>
                 <a th:href="@{/productos/delete/}+${producto.codigo}" th:text="#{list.borrar}" href="delete.html" class="btn btn-primary">Borrar</a>

@@ -1,9 +1,14 @@
 package com.zeropokel.springprojects.tienda.model;
 
+import javax.persistence.Id;
+
 public class DetallePedido {
     
+    @Id
     private int codigo;
+
     private Producto producto;
+
     private int cantidad;
     private float subtotal;
 
