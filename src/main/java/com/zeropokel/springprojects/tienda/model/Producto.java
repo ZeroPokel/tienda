@@ -1,10 +1,13 @@
 package com.zeropokel.springprojects.tienda.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 
 import org.springframework.data.annotation.AccessType;
 
@@ -19,9 +22,13 @@ public class Producto {
     private String nombre;
     private String descripcion;
     private float precio;
+    
     @Lob
     @Column(length = 100000)
     private byte[] img;
+
+    @OneToMany(mappedBy = "producto")
+    private Set<DetallePedido> detallepedidos;
 
     public Producto() {
     }

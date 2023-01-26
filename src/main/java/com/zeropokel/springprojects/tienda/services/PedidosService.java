@@ -9,7 +9,7 @@ public interface PedidosService {
     
     public Page<Pedido> findAll(Pageable page);
     public Pedido findByID(int codigo);
-    public void insert(Pedido pedido);
+    public void save(Pedido pedido);
     // public void update(Pedido pedido);
     public void delete(int codigo);
 }

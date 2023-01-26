@@ -77,7 +77,7 @@ public class DetallePedidoDAOImpl extends JdbcDaoSupport implements DetallePedid
                 @Nullable
                 public DetallePedido mapRow(ResultSet rs, int rowNum) throws SQLException {
                     DetallePedido detalle = new DetallePedido();
-                    detalle.setCodigo(rs.getInt("codigo"));
+                    //detalle.setCodigo(rs.getInt("codigo"));
                     detalle.setCantidad(rs.getInt("cantidad"));
                     detalle.setSubtotal(rs.getFloat("total"));
                     Producto producto = new Producto();

@@ -1,36 +1,38 @@
 package com.zeropokel.springprojects.tienda.model;
 
-import javax.persistence.Id;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 
+@Entity
 public class DetallePedido {
-    
-    @Id
-    private int codigo;
 
+    @EmbeddedId
+    private DetallePedidoKey id = new DetallePedidoKey();
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @MapsId("producto_codigo")
     private Producto producto;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @MapsId("pedido_codigo")
+    private Pedido pedido;
 
     private int cantidad;
     private float subtotal;
 
+
     public DetallePedido() {
+    } 
+
+    public DetallePedidoKey getId() {
+        return id;
     }
 
-    public DetallePedido(int codigo) {
-        this.codigo = codigo;
-    }
-
-    public DetallePedido(int codigo, Producto producto, int cantidad) {
-        this.codigo = codigo;
-        this.producto = producto;
-        this.cantidad = cantidad;
-    }
-
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    public void setId(DetallePedidoKey id) {
+        this.id = id;
     }
 
     public Producto getProducto() {
@@ -41,6 +43,13 @@ public class DetallePedido {
         this.producto = producto;
     }
 
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
+    }
     public int getCantidad() {
         return cantidad;
     }

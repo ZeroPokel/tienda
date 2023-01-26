@@ -161,6 +161,7 @@ public class ProductoController {
             detalle.setProducto(producto);
             detalle.setCantidad(cantidad);
             detalle.setSubtotal(cantidad*producto.getPrecio());
+            detalle.setPedido(pedido);
             pedido.getDetallepedidos().add(detalle);
 
             session.setAttribute("pedido", pedido);

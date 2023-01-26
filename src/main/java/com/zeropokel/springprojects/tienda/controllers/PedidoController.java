@@ -25,7 +25,6 @@ import com.zeropokel.springprojects.tienda.model.DetallePedido;
 import com.zeropokel.springprojects.tienda.model.Pedido;
 import com.zeropokel.springprojects.tienda.model.Producto;
 import com.zeropokel.springprojects.tienda.services.ClientesService;
-import com.zeropokel.springprojects.tienda.services.DetallePedidosService;
 import com.zeropokel.springprojects.tienda.services.PedidosService;
 import com.zeropokel.springprojects.tienda.services.ProductosService;
 
@@ -35,9 +34,6 @@ public class PedidoController {
 
     @Autowired
     ClientesService clientesService;
-
-    @Autowired
-    DetallePedidosService detallePedidosService;
     
     @Autowired
     PedidosService pedidosService;
@@ -99,9 +95,8 @@ public class PedidoController {
             throws IOException {
 
         Pedido pedido = (Pedido) session.getAttribute("pedido");
-
-        pedidosService.insert(pedido);
-
+        
+        pedidosService.save(pedido);
         session.removeAttribute("pedido");
 
         ModelAndView modelAndView = new ModelAndView();
