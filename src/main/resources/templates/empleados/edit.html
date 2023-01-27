@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/header :: header"></head>
+<body>
+
+    <div th:replace="commons/menu :: menu"></div>
+    <div class="container-fluid">
+        <form class="row g-3" method="post" th:action="@{/empleados/update}">
+            <div class="col-md-4">
+                <label for="codigo" class="form-label" th:text="#{empleado.codigo}">Codigo</label>
+                <input type="text" class="form-control" id="codigo" name="codigo" th:value="${empleado.codigo}" readonly>
+            </div>
+            <div class="col-md-4">
+                <label for="nombre" class="form-label" th:text="#{empleado.nombre}">Nombre</label>
+                <input type="nombre" class="form-control" id="nombre" name="nombre" th:value="${empleado.nombre}" >
+            </div>
+            <div class="col-md-4">
+                <label for="apellido" class="form-label" th:text="#{empleado.apellido}">Apellidos</label>
+                <input type="text" class="form-control" id="apellidos" name="apellidos" th:value="${empleado.apellidos}" >
+            </div>
+            <div class="col-md-4">
+                <label for="dni" class="form-label" th:text="#{empleado.dni}">DNI</label>
+                <input type="text" class="form-control" id="dni" name="dni" th:value="${empleado.dni}" >
+            </div>
+            <div class="col-md-4">
+                <label for="telefono" class="form-label" th:text="#{empleado.telefono}">Teléfono</label>
+                <input type="text" class="form-control" id="telefono" name="telefono" th:value="${empleado.telefono}" >
+            </div>
+            <div class="col-md-4">
+                <label for="direccion" class="form-label" th:text="#{empleado.direccion}">Dirección</label>
+                <input type="text" class="form-control" id="direccion" name="direccion" th:value="${empleado.direccion}" >
+            </div>
+            <div class="col-4">
+                <a th:href="@{/empleados/list}" href="list.html" class="btn btn-primary" th:text="#{list.atras}">Cancelar</a>
+                <button class="btn btn-primary" type="submit" th:text="#{list.actualizar}">Actualizar</button>
+            </div>
+        </form>
+    </div>
+
+    <div th:replace="commons/footer :: footer" class="container"></div>
+</body>
+</html>

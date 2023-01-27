@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/header :: header"></head>
+<body>
+
+    <div th:replace="commons/menu :: menu"></div>
+    <div class="container-fluid">
+        <form class="row g-3" method="post" th:action="@{/empleados/save}">
+            <div class="col-md-4">
+                <label for="nombre" class="form-label" th:text="#{empleado.nombre}">Nombre</label>
+                <input type="nombre" class="form-control" id="nombre" name="nombre">
+            </div>
+            <div class="col-md-4">
+                <label for="apellido" class="form-label" th:text="#{empleado.apellido}">Apellidos</label>
+                <input type="text" class="form-control" id="apellidos" name="apellidos">
+            </div>
+            <div class="col-md-4">
+                <label for="dni" class="form-label" th:text="#{empleado.dni}">DNI</label>
+                <input type="text" class="form-control" id="dni" name="dni">
+            </div>
+            <div class="col-md-4">
+                <label for="telefono" class="form-label" th:text="#{empleado.telefono}">Teléfono</label>
+                <input type="text" class="form-control" id="telefono" name="telefono">
+            </div>
+            <div class="col-md-4">
+                <label for="email" class="form-label" th:text="#{empleado.email}">E-mail</label>
+                <input type="text" class="form-control" id="email" name="email">
+            </div>
+            <div class="col-md-4">
+                <label for="direccion" class="form-label" th:text="#{empleado.direccion}">Dirección</label>
+                <input type="text" class="form-control" id="direccion" name="direccion">
+            </div>
+            <div class="col-1">
+                <a th:href="@{/empleados/list}" href="list.html" class="btn btn-primary" th:text="#{list.atras}">Cancelar</a>
+            </div>
+            <div class="col-1">
+                <input type="submit" class="btn btn-primary" th:value="#{list.crear}"></input>
+            </div>
+        </form>
+    </div>
+
+    <div th:replace="commons/footer :: footer" class="container"></div>
+</body>
+</html>

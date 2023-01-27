@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/header :: header"></head>
+<body>
+
+    <div th:replace="commons/menu :: menu"></div>
+    <div class="container-fluid">
+        <form class="row g-3" method="post" th:action="@{/departamentos/save}">
+            <div class="col-md-4">
+                <label for="nombre" class="form-label" th:text="#{departamento.nombre}">Nombre</label>
+                <input type="nombre" class="form-control" id="nombre" name="nombre">
+            </div>
+            <div class="col-1">
+                <a th:href="@{/departamentos/list}" href="list.html" class="btn btn-primary" th:text="#{list.atras}">Cancelar</a>
+            </div>
+            <div class="col-1">
+                <input type="submit" class="btn btn-primary" th:value="#{list.crear}"></input>
+            </div>
+        </form>
+    </div>
+
+    <div th:replace="commons/footer :: footer" class="container"></div>
+</body>
+</html>

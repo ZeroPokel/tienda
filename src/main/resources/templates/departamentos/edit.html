@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/header :: header"></head>
+<body>
+
+    <div th:replace="commons/menu :: menu"></div>
+    <div class="container-fluid">
+        <form class="row g-3" method="post" th:action="@{/departamentos/update}">
+            <div class="col-md-4">
+                <label for="codigo" class="form-label" th:text="#{departamento.codigo}">Codigo</label>
+                <input type="text" class="form-control" id="codigo" name="codigo" th:value="${departamento.codigo}" readonly>
+            </div>
+            <div class="col-md-4">
+                <label for="nombre" class="form-label" th:text="#{departamento.nombre}">Nombre</label>
+                <input type="nombre" class="form-control" id="nombre" name="nombre" th:value="${departamento.nombre}" >
+            </div>
+            <div class="col-sm-6">
+                <label for="empleados" class="form-label" th:text="#{empleados.titulo}">Empleados
+                </label>
+                <ul class="list-group">
+                    <li class="list-group-item" th:each="empleado : ${empleados}">
+                        <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" th:checked="${empleado.perteneceDepartamento} ? 'true' : 'false'">                            
+                        <label class="form-check-label" for="firstCheckbox" th:text="|${empleado.nombre} ${empleado.apellidos}|"></label>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-12">
+                <a th:href="@{/departamentos/list}" href="list.html" class="btn btn-primary" th:text="#{list.atras}">Cancelar</a>
+                <button class="btn btn-primary" type="submit" th:text="#{list.actualizar}">Actualizar</button>
+            </div>
+        </form>
+    </div>
+
+    <div th:replace="commons/footer :: footer" class="container"></div>
+</body>
+</html>

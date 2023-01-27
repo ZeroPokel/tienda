@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/header :: header"> </head>
+<body>
+    
+  <div th:replace="commons/menu :: menu"></div>
+    
+    <!-- CARDS -->
+    <div class="container">
+      <a th:href="@{/departamentos/create}" th:text="#{list.crear}" href="create.html" class="btn btn-primary">Crear</a>
+        <div class="row">
+            <table class="table table-striped table-hover">
+              <caption th:text="#{departamento.titulo}">Lista de departamentos</caption>
+                <thead>
+                  <tr>
+                    <th scope="col" th:text="#{departamento.codigo}">Código</th>
+                    <th scope="col" th:text="#{departamento.nombre}">Nombre</th>
+                    <th scope="col" th:text="#{list.editar}">Editar</th>
+                    <th scope="col" th:text="#{list.eliminar}">Eliminar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <div th:each="departamento : ${departamentos}" class="col-3">
+                        <tr>
+                            <th scope="row" th:text="${departamento.codigo}">1</th>
+                            <td th:text="${departamento.nombre}">Ejemplo</td>
+                            <td><a th:href="@{/departamentos/edit/}+${departamento.codigo}" th:text="#{list.editar}" href="edit.html" class="btn btn-primary bi bi-pen"></a></td>
+                            <td><a th:href="@{/departamentos/delete/}+${departamento.codigo}" th:text="#{list.borrar}" href="list.html" class="btn btn-primary bi bi-trash"></a></td>
+                        </tr>
+                    </div>
+                </tbody>
+            </table> 
+        </div>
+    </div>
+
+      <br>
+      <div th:replace="commons/pagination :: pagination"></div>
+  </div>
+
+  <div th:replace="commons/footer :: footer" class="container"></div>
+</body>
+</html>
