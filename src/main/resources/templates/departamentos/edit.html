@@ -15,12 +15,12 @@
                 <input type="nombre" class="form-control" id="nombre" name="nombre" th:value="${departamento.nombre}" >
             </div>
             <div class="col-sm-6">
-                <label for="empleados" class="form-label" th:text="#{empleados.titulo}">Empleados
+                <label for="empleados" class="form-label" th:text="#{empleado.titulo}">Empleados
                 </label>
                 <ul class="list-group">
                     <li class="list-group-item" th:each="empleado : ${empleados}">
-                        <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox" th:checked="${empleado.perteneceDepartamento} ? 'true' : 'false'">                            
-                        <label class="form-check-label" for="firstCheckbox" th:text="|${empleado.nombre} ${empleado.apellidos}|"></label>
+                        <input class="form-check-input me-1" type="checkbox" name="dep" th:value="${empleado.codigo}" id="firstCheckbox" th:checked="${empleado.perteneceDepartamento} ? 'true' : 'false'">                            
+                        <label class="form-check-label" for="firstCheckbox" name="dep" th:text="|${empleado.nombre} ${empleado.apellidos}|"></label>
                     </li>
                 </ul>
             </div>
