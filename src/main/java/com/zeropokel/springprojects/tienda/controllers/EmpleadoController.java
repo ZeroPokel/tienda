@@ -1,6 +1,7 @@
 package com.zeropokel.springprojects.tienda.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.zeropokel.springprojects.tienda.model.Departamento;
 import com.zeropokel.springprojects.tienda.model.Empleado;
+import com.zeropokel.springprojects.tienda.services.DepartamentosService;
 import com.zeropokel.springprojects.tienda.services.EmpleadosService;
 
 import org.springframework.data.domain.Page;
@@ -27,6 +30,9 @@ public class EmpleadoController {
 
     @Autowired
     EmpleadosService empleadosService;
+
+    @Autowired
+    DepartamentosService departamentosService;
 
     @Value("${pagination.size}")
     int sizePage;
@@ -102,6 +108,7 @@ public class EmpleadoController {
 
         empleadosService.update(empleado);
 
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:edit/" + empleado.getCodigo());
 
@@ -121,3 +128,26 @@ public class EmpleadoController {
     }
 
 }
+
+        /*
+        if (empleado.getDepartamentos() != null){
+            List<Departamento> departamentos = empleado.getDepartamentos();
+            for (Departamento departamento : departamentos){
+                List<Empleado> empleadosDep = departamento.getEmpleados();
+                for(Empleado empleadoborra : empleadosDep){
+                    if (empleadoborra.getCodigo() == empleado.getCodigo()){
+                        empleadosDep.remove(empleadoborra);
+                        departamentosService.update(departamento);
+                        departamentos.remove(departamento);
+                        empleado.setDepartamentos(departamentos);
+                        break;
+                    }
+                }
+            }
+        }
+
+        empleadosService.update(empleado);
+        Empleado empleadoUpdate = empleadosService.findByID(codigo);
+        int codigo2 = empleadoUpdate.getCodigo();
+        empleadosService.delete(codigo2);
+        */

@@ -59,6 +59,7 @@ public class Empleado {
         return nombre;
     }
 
+    
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -133,12 +134,12 @@ public class Empleado {
         return true;
     }
 
-    // public List<Pedido> getPedidos() {
-    //     return pedidos;
-    // }
+    public List<Departamento> getDepartamentos() {
+        return departamentos;
+    }
 
-    // public void setPedidos(List<Pedido> pedidos) {
-    //     this.pedidos = pedidos;
-    // }
+    public void setDepartamentos(List<Departamento> departamentos) {
+        this.departamentos = departamentos;
+    }
 
 }
