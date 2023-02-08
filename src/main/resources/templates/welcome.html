@@ -10,6 +10,11 @@
                 <div class="col-md-12">
                     <div class="h-100 p-5 text-bg-dark rounded-3">
                         <h3>¡Hola!</h3>
+                        <span sec:authorize="isAuthenticated()">
+                            Logged user: <span sec:authentication="name"></span>
+                            Roles: <span sec:authentication="principal.authorities"></span>
+                            <a th:href="@{/logout}">Sign out</a>
+                        </span>
                     </div>
                 </div>
             </div>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <body>
   <div th:fragment="menu">
     <!-- MENU PRINCIPAL -->
@@ -60,7 +61,7 @@
             </form>
           </div>
         </div>
-        <!--<a class="btn btn-outline-success" th:href="@{/logout}"><i class="bi bi-box-arrow-in-left" th:text="${session.usuario.usuario}"></i></a>-->
+        <a class="btn btn-outline-success" th:href="@{/logout}"><i class="bi bi-box-arrow-in-left" th:text="logout"></i></a>-->
     </nav>
   </div> 
 </body>

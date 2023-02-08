@@ -68,5 +68,13 @@ public class Permiso {
         return true;
     }
 
+    public List<Usuario> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<Usuario> users) {
+        this.users = users;
+    }
+
     
 }

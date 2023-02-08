@@ -16,7 +16,7 @@ public class Usuario {
     @Id
     @GeneratedValue
     private int codigo;
-    private String usuario;
+    private String nombre;
     private String password;
     private String email;
 
@@ -31,23 +31,25 @@ public class Usuario {
         this.codigo = codigo;
     }
 
-    public Usuario(int codigo, String usuario, String password, String email) {
+    public Usuario(int codigo, String nombre, String password, String email) {
         this.codigo = codigo;
-        this.usuario = usuario;
+        this.nombre = nombre;
         this.password = password;
         this.email = email;
     }
+
+    
 
     public int getCodigo() {
         return codigo;
     }
 
-    public String getUsuario() {
-        return usuario;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getPassword() {
@@ -86,6 +88,18 @@ public class Usuario {
         if (codigo != other.codigo)
             return false;
         return true;
+    }
+
+    public List<Permiso> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(List<Permiso> permissions) {
+        this.permissions = permissions;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
     
     
