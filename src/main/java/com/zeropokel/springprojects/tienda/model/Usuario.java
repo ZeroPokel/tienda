@@ -1,10 +1,28 @@
 package com.zeropokel.springprojects.tienda.model;
 
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+
+@Entity
 public class Usuario {
 
+    @Id
+    @GeneratedValue
     private int codigo;
     private String usuario;
     private String password;
+    private String email;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_permission", joinColumns = @JoinColumn(name = "Usuario_codigo"), inverseJoinColumns = @JoinColumn(name = "Permiso_codigo"))
+    private List<Permiso> permissions;
     
     public Usuario() {
     }
@@ -13,10 +31,11 @@ public class Usuario {
         this.codigo = codigo;
     }
 
-    public Usuario(int codigo, String usuario, String password) {
+    public Usuario(int codigo, String usuario, String password, String email) {
         this.codigo = codigo;
         this.usuario = usuario;
         this.password = password;
+        this.email = email;
     }
 
     public int getCodigo() {
@@ -37,6 +56,14 @@ public class Usuario {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
