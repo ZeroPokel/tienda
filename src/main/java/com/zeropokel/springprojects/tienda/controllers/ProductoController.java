@@ -22,6 +22,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import com.zeropokel.springprojects.tienda.model.DetallePedido;
 import com.zeropokel.springprojects.tienda.model.Pedido;
@@ -30,6 +31,7 @@ import com.zeropokel.springprojects.tienda.services.ProductosService;
 
 @Controller
 @RequestMapping("/productos")
+@PreAuthorize("hasAnyAuthority('ADMIN','PRODUCTOS')")
 public class ProductoController {
     
     @Autowired

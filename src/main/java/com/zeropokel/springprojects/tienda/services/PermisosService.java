@@ -22,11 +22,11 @@ public class PermisosService {
         return permissionRepository.save(permission);
     }
 
-    public void deletePermiso(Long permissionId) {
+    public void deletePermiso(Integer permissionId) {
         permissionRepository.deleteById(permissionId);
     }
 
-    public Permiso getPermiso(Long permissionId) {
+    public Permiso getPermiso(Integer permissionId) {
         return permissionRepository.findById(permissionId).orElse(null);
     }
 

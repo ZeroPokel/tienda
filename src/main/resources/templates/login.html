@@ -2,22 +2,46 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="commons/header :: header"></head>
 <body>
-    <div th:replace="commons/menu :: menu"></div>
 
-    <main>
-        <div class="container py-4">
-            <div class="row align-items-md-stretch">
-                <div class="col-md-12">
-                    <div class="h-100 p-5 text-bg-dark rounded-3">
-                        <h1 th:text="${greetings}"> </h1>
-                        <h3 th:text="#{saludar.usuario(${session.usuario.usuario})}"></h3>
-                    </div>
+    <div class="container">
+        <h1>Login</h1>
+    </div>
+
+    <div class="container">
+        <!-- El action del formulario envía los datos a /login/signin con el método POST -->
+        <form method="post" th:action="@{/login/signin}">
+            <!-- Email input -->
+            <div class="form-outline mb-4">
+                <input type="text" id="usuario" name="usuario" class="form-control" />
+                <label class="form-label" for="usuario">Usuario</label>
+            </div>
+
+            <!-- Password input -->
+            <div class="form-outline mb-4">
+                <input type="password" id="contrasenia" name="contrasenia" class="form-control" />
+                <label class="form-label" for="contrasenia">Contraseña</label>
+            </div>
+
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+
+            <div th:if="${session}">
+                <div th:if="${session.usuario}">
+                    <div th:text="${session.usuario.usuario}"></div>
+                </div>
+                <div th:unless="${session.usuario}">
+                    <div>Sin session</div>
                 </div>
             </div>
-        </div>
-    </main>
 
-    <div th:replace="commons/footer :: footer" class="container"></div>
+            <div th:unless="${session}">
+                <div>Sin session</div>
+            </div>
 
+        </form>
+    </div>
+
+    <div th:replace="commons/footer :: footer" class="container" />
 </body>
+
 </html>

@@ -1,7 +1,6 @@
 package com.zeropokel.springprojects.tienda.controllers;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -17,12 +16,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import com.zeropokel.springprojects.tienda.model.Vendedor;
 import com.zeropokel.springprojects.tienda.services.VendedoresService;
 
 @Controller
 @RequestMapping("/vendedores")
+@PreAuthorize("hasAnyAuthority('ADMIN','VENDEDORES')")
 public class VendedorController {
 
     @Autowired

@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.zeropokel.springprojects.tienda.model.DetallePedido;
 import com.zeropokel.springprojects.tienda.model.DetallePedidoKey;
 import com.zeropokel.springprojects.tienda.model.Pedido;
-import com.zeropokel.springprojects.tienda.repository.ClienteRepository;
 import com.zeropokel.springprojects.tienda.repository.DetallePedidoRepository;
 import com.zeropokel.springprojects.tienda.repository.PedidoRepository;
 import com.zeropokel.springprojects.tienda.services.PedidosService;

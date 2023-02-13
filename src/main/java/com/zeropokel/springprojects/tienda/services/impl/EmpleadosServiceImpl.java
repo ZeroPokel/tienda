@@ -1,6 +1,5 @@
 package com.zeropokel.springprojects.tienda.services.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,7 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.zeropokel.springprojects.tienda.model.Departamento;
 import com.zeropokel.springprojects.tienda.model.Empleado;
 import com.zeropokel.springprojects.tienda.repository.EmpleadoRepository;
 import com.zeropokel.springprojects.tienda.services.EmpleadosService;

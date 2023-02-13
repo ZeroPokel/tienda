@@ -1,7 +1,6 @@
 package com.zeropokel.springprojects.tienda.controllers;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -13,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,16 +20,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.zeropokel.springprojects.tienda.model.Cliente;
-import com.zeropokel.springprojects.tienda.model.DetallePedido;
 import com.zeropokel.springprojects.tienda.model.Pedido;
-import com.zeropokel.springprojects.tienda.model.Producto;
 import com.zeropokel.springprojects.tienda.services.ClientesService;
 import com.zeropokel.springprojects.tienda.services.PedidosService;
-import com.zeropokel.springprojects.tienda.services.ProductosService;
 
 @Controller
 @RequestMapping("/pedidos")
+@PreAuthorize("hasAnyAuthority('ADMIN','PEDIDOS')")
 public class PedidoController {
 
     @Autowired

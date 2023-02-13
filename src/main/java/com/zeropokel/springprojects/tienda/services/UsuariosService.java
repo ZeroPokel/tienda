@@ -29,11 +29,11 @@ public class UsuariosService implements UserDetailsService{
         return userRepository.save(user);
     }
 
-    public void deleteUser(Long userId) {
+    public void deleteUser(Integer userId) {
         userRepository.deleteById(userId);
     }
 
-    public Usuario getUser(Long userId) {
+    public Usuario getUser(Integer userId) {
         return userRepository.findById(userId).orElse(null);
     }
 

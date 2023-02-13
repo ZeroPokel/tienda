@@ -14,7 +14,9 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import com.zeropokel.springprojects.tienda.services.UsuariosService;
 
+@Configuration
 public class SecurityConfig {
+
     // Noop -> Que no tenga codificación
     @Bean
     public PasswordEncoder passwordEncoder(){

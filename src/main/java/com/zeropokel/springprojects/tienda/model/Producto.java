@@ -9,8 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 
-import org.springframework.data.annotation.AccessType;
-
 import com.zeropokel.springprojects.tienda.utils.ImageUtil;
 
 @Entity

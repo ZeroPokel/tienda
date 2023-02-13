@@ -1,7 +1,6 @@
 package com.zeropokel.springprojects.tienda.controllers;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.zeropokel.springprojects.tienda.model.Departamento;
 import com.zeropokel.springprojects.tienda.model.Empleado;
 import com.zeropokel.springprojects.tienda.services.DepartamentosService;
 import com.zeropokel.springprojects.tienda.services.EmpleadosService;
@@ -23,9 +21,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 @Controller
 @RequestMapping("/empleados")
+@PreAuthorize("hasAnyAuthority('ADMIN','EMPLEADOS')")
 public class EmpleadoController {
 
     @Autowired

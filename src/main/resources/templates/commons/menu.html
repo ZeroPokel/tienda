@@ -15,30 +15,28 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" th:href="@{/}" th:text="#{menu.home}" href="../index.html">Home</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN','PRODUCTOS')">
                 <a class="nav-link" th:href="@{/productos/list}" th:text="#{menu.productos}" href="../productos/list.html">Productos</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN','CLIENTES')">
                 <a class="nav-link" th:href="@{/clientes/list}" th:text="#{menu.clientes}" href="../clientes/list.html">Clientes</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN','EMPLEADOS')">
                 <a class="nav-link" th:href="@{/empleados/list}" th:text="#{menu.empleados}" href="../empleados/list.html">Empleados</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN','DEPARTAMENTOS')">
                 <a class="nav-link" th:href="@{/departamentos/list}" th:text="#{menu.departamentos}" href="../departamentos/list.html">Departamentos</a>
               </li>
-              <!--
-              <li class="nav-item">
+              <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN','PROVEEDORES')">
                 <a class="nav-link" th:href="@{/proveedores/list}" th:text="#{menu.proveedores}" href="../proveedores/list.html">Proveedor</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN','VENDEDORES')">
                 <a class="nav-link" th:href="@{/vendedores/list}" th:text="#{menu.vendedores}" href="../vendedores/list.html">Vendedor</a>
               </li>
-              -->
-              <li class="nav-item">
+              <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN','CESTA')">
                 <a class="nav-link" th:href="@{/clientes/pedido/}+${session.pedido.cliente.codigo}" th:text="#{menu.cesta}" th:if="${session ne null and session.pedido ne null}" href="../vendedores/list.html">Vendedor</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN','PEDIDOS')">
                 <a class="nav-link" th:href="@{/pedidos/list}" href="pedidos/list.html"  th:text="#{menu.pedidos}">Pedidos</a>
             </li> 
             </ul>
