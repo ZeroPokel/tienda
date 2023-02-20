@@ -38,7 +38,10 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
               </li>
               <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN','PEDIDOS')">
                 <a class="nav-link" th:href="@{/pedidos/list}" href="pedidos/list.html"  th:text="#{menu.pedidos}">Pedidos</a>
-            </li> 
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" th:href="@{/contactos/list}" href="contactos/list.html">Contactos</a>
+              </li> 
             </ul>
 
             <ul class="navbar-nav">
