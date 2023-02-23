@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="commons/header :: header"></head>
+
+<body>
+
+    <div th:replace="commons/menu :: menu"></div>
+    <div class="container-fluid">
+        <form class="row g-3" method="post" th:action="@{/notas/update}">
+            <div class="col-md-4">
+                <label for="id" class="form-label">ID</label>
+                <input type="text" class="form-control" id="id" name="id" th:value="${nota.id}" readonly>
+            </div>
+            <div class="col-md-4">
+                <label for="titulo" class="form-label">Titulo</label>
+                <input type="text" class="form-control" id="titulo" name="titulo" th:value="${nota.titulo}">
+            </div>
+            <div class="col-md-4">
+                <label for="fecha" class="form-label">Fecha</label>
+                <input type="text" class="form-control" id="fecha" name="fecha" full-date="date-fullyear '-' date-month '-' date-mday" th:value="${nota.fecha}">
+            </div>
+            <div class="col-md-4">
+                <label for="descripcion" class="form-label">Descripción</label>
+                <input type="text" class="form-control" id="descripcion" name="descripcion" th:value="${nota.descripcion}">
+            </div>
+            <div class="col-4">
+                <a th:href="@{/notas/list}" href="list.html" class="btn btn-primary"
+                    th:text="#{list.atras}">Cancelar</a>
+                <button class="btn btn-primary" type="submit" th:text="#{list.actualizar}">Actualizar</button>
+            </div>
+        </form>
+    </div>
+
+    <div th:replace="commons/footer :: footer" class="container"></div>
+</body>
+
+</html>
