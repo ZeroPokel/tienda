@@ -41,7 +41,7 @@
                             <th scope="row" th:text="${nota.id}">1</th>
                             <td th:text="${nota.titulo}">Ejemplo</td>
                             <td th:text="${nota.descripcion}">111222333</td>
-                            <td th:text="${nota.fecha}">Calle</td>
+                            <td th:text="${#dates.format(nota.fecha, 'dd/MM/yyyy')}">Calle</td>
                             <td><a th:href="@{/notas/edit/}+${nota.id}" th:text="#{list.editar}" href="edit.html" class="btn btn-primary bi bi-pen"></a></td>
                             <td><a th:href="@{/notas/delete/}+${nota.id}" th:text="#{list.borrar}" href="list.html" class="btn btn-primary bi bi-trash"></a></td>
                         </tr>

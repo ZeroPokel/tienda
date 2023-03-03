@@ -86,6 +86,10 @@ class TiendaApplicationTests {
 		permisoDepartamentos.setCodigo(8);
 		permisoDepartamentos.setNombre("DEPARTAMENTOS");
 
+		Permiso permisoNotas = new Permiso();
+		permisoNotas.setCodigo(9);
+		permisoNotas.setNombre("NOTAS");
+
 		List<Permiso> permisosTodos = new ArrayList<Permiso>();
 		permisosTodos.add(permisoAdmin);
 
@@ -110,6 +114,7 @@ class TiendaApplicationTests {
 		permissionRepository.save(permisoVendedores);
 		permissionRepository.save(permisoEmpleados);
 		permissionRepository.save(permisoDepartamentos);
+		permissionRepository.save(permisoNotas);
 
 		userRepository.save(u1);
 		userRepository.save(u3);

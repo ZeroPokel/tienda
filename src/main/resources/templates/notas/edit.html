@@ -18,7 +18,7 @@
             </div>
             <div class="col-md-4">
                 <label for="fecha" class="form-label">Fecha</label>
-                <input type="text" class="form-control" id="fecha" name="fecha" full-date="date-fullyear '-' date-month '-' date-mday" th:value="${nota.fecha}">
+                <input type="text" class="form-control" id="fecha" name="fecha" th:value="${#dates.format(nota.fecha, 'dd/MM/yyyy')}">
             </div>
             <div class="col-md-4">
                 <label for="descripcion" class="form-label">Descripción</label>

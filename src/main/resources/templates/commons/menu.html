@@ -42,7 +42,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
               <li class="nav-item">
                 <a class="nav-link" th:href="@{/contactos/list}" href="contactos/list.html">Contactos</a>
               </li> 
-              <li class="nav-item">
+              <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN','NOTAS')">
                 <a class="nav-link" th:href="@{/notas/list}" href="notas/list.html">Notas</a>
               </li> 
             </ul>
