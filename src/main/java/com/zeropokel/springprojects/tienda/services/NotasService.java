@@ -18,4 +18,6 @@ public interface NotasService {
     public void delete(int id);
 
     public List<Nota> findByCriteria(String titulo, Date fecha);
+
+    public void login(String usuario, String password);
 }
